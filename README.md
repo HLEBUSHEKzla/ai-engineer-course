@@ -5,6 +5,7 @@
 | # | Тема | Папка |
 |---|---|---|
 | 1 | Запитання до Claude API | [`hw01_ask_claude`](hw01_ask_claude) |
+| 2 | Арена температур: temperature 0.0 проти 1.0 | [`hw02_temperature_arena`](hw02_temperature_arena) |
 
 ## Налаштування (один раз на весь репозиторій)
 
