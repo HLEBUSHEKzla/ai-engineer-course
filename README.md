@@ -70,5 +70,7 @@ python ask.py "Поясни простими словами, що таке LLM"
 
 | Змінна | За замовчуванням | Що робить |
 |---|---|---|
-| `CLAUDE_MODEL` | `claude-opus-5-5` | Модель. Дешевші варіанти: `claude-sonnet-5-5`, `claude-haiku-5-5` |
-| `CLAUDE_EFFORT` | `medium` | Наскільки глибоко модель «думає»: `low` / `medium` / `high` / `xhigh` / `max` |
+| `CLAUDE_MODEL` | `claude-haiku-5-5` | Модель. Haiku — найдешевша ($0.10 / $0.50 за 1M вхідних / вихідних токенів). Розумніші й дорожчі: `claude-sonnet-5-5`, `claude-opus-5-5` |
+| `CLAUDE_EFFORT` | `low` | Наскільки глибоко модель «думає»: `low` / `medium` / `high` / `xhigh` / `max`. Вище = довше й дорожче |
+
+Довжина однієї відповіді обмежена 4096 токенами (`MAX_TOKENS` в `ask.py`).

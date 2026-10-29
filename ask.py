@@ -14,8 +14,10 @@ from dotenv import load_dotenv
 # Ключ та налаштування беремо з файлу .env (він у .gitignore і НЕ потрапляє на GitHub)
 load_dotenv()
 
-MODEL = os.getenv("CLAUDE_MODEL", "claude-opus-5-5")
-EFFORT = os.getenv("CLAUDE_EFFORT", "medium")  # low | medium | high | xhigh | max
+# Haiku — найдешевша модель Claude, для навчальних запитів її більш ніж достатньо
+MODEL = os.getenv("CLAUDE_MODEL", "claude-haiku-5-5")
+EFFORT = os.getenv("CLAUDE_EFFORT", "low")  # low | medium | high | xhigh | max
+MAX_TOKENS = 4096  # верхня межа довжини відповіді — щоб випадково не спалити багато токенів
 
 SYSTEM_PROMPT = (
     "Ти — корисний асистент. Відповідай мовою, якою поставлене запитання, "
@@ -26,15 +28,12 @@ SYSTEM_PROMPT = (
 def ask(client: anthropic.Anthropic, messages: list) -> list:
     """Відправляє історію розмови в Claude, друкує відповідь по мірі генерації
     і повертає content відповіді, щоб додати його в історію."""
-    with client.beta.messages.stream(
+    with client.messages.stream(
         model=MODEL,
-        max_tokens=16000,
+        max_tokens=MAX_TOKENS,
         system=SYSTEM_PROMPT,
         messages=messages,
         output_config={"effort": EFFORT},
-        # Якщо модель відмовить через фільтри безпеки — API сам повторить запит на іншій моделі
-        betas=["server-side-fallback-2026-07-01"],
-        fallbacks="default",
     ) as stream:
         for text in stream.text_stream:
             print(text, end="", flush=True)
