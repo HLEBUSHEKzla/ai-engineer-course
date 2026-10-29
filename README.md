@@ -1,20 +1,20 @@
-# AI Engineer: домашки
+# AI Engineer: домашні завдання
 
-Тут мої домашні завдання з курсу AI Engineer (Web Academy). Кожна домашка лежить в окремій папці:
+Домашні завдання з курсу AI Engineer (Web Academy). Кожне завдання лежить в окремій папці:
 
-- [`hw01_ask_claude`](hw01_ask_claude): скрипт, який задає питання Claude через API
-- [`hw02_temperature_arena`](hw02_temperature_arena): порівнюю відповіді з temperature 0.0 і 1.0
+- [`hw01_ask_claude`](hw01_ask_claude): скрипт, що ставить запитання Claude через API
+- [`hw02_temperature_arena`](hw02_temperature_arena): порівняння відповідей з temperature 0.0 і 1.0
 
-## Як запустити у себе
+## Запуск
 
-Потрібен Python 3.10 або новіший. venv, залежності і ключ одні на весь репозиторій, тому налаштовується все один раз у корені.
+Потрібен Python 3.10 або новіший. Віртуальне середовище, залежності й API-ключ спільні для всього репозиторію, тому налаштування робиться один раз у корені.
 
 ```bash
 git clone https://github.com/HLEBUSHEKzla/ai-engineer-course.git
 cd ai-engineer-course
 ```
 
-Створити і активувати venv. На Windows у PowerShell:
+Створення й активація venv на Windows (PowerShell):
 
 ```powershell
 python -m venv venv
@@ -28,16 +28,16 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-У PyCharm треба ще вибрати цей інтерпретатор: Settings → Project → Python Interpreter → Add Interpreter → Existing, і там `venv/Scripts/python.exe` (на Windows) або `venv/bin/python`.
+У PyCharm цей інтерпретатор обирається так: Settings → Project → Python Interpreter → Add Interpreter → Existing, далі `venv/Scripts/python.exe` (Windows) або `venv/bin/python` (macOS / Linux).
 
-Поставити залежності:
+Встановлення залежностей:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Ключ: скопіювати `.env.example` в `.env` (у корені) і вставити туди свій `ANTHROPIC_API_KEY`. `.env` є в `.gitignore`, тож на GitHub він не потрапить. Скрипти з будь-якої папки його знаходять самі.
+API-ключ зберігається у файлі `.env` у корені репозиторію: достатньо скопіювати `.env.example` в `.env` і вписати свій `ANTHROPIC_API_KEY`. Файл `.env` додано в `.gitignore`, тож на GitHub ключ не потрапить. Скрипти з будь-якої папки знаходять його автоматично.
 
-## Для себе: як додавати нову домашку
+## Додавання нового завдання
 
-Нова папка `hwNN_назва`. Якщо треба нова бібліотека, дописую її в кореневий `requirements.txt` і додаю домашку в список вище.
+Кожне нове завдання отримує окрему папку `hwNN_назва`. Нові бібліотеки дописуються в кореневий `requirements.txt`, а саме завдання додається до списку вище.
