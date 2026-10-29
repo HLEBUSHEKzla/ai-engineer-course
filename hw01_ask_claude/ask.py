@@ -1,4 +1,4 @@
-"""ДЗ 1 - питаю Claude через API.
+"""ДЗ 1 - запитання до Claude через API.
 
 python ask.py "питання"   - одне питання
 python ask.py             - чат
@@ -97,10 +97,10 @@ def main() -> None:
         print("Claude: ", end="", flush=True)
         content = ask_safely(client, messages)
         if content is None:
-            messages.pop()  # питання без відповіді викидаю з історії
+            messages.pop()  # питання без відповіді прибирається з історії
             continue
 
-        # API нічого не пам'ятає, тому шлю всю історію кожен раз
+        # API нічого не пам'ятає, тому щоразу надсилається вся історія
         messages.append({"role": "assistant", "content": content})
         print()
 
