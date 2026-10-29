@@ -1,8 +1,7 @@
-"""Домашнє завдання 1: скрипт, який відповідає на запитання через Claude API.
+"""ДЗ 1 - питаю Claude через API.
 
-Використання:
-    python ask.py "Що таке LLM?"   # одне запитання — одна відповідь
-    python ask.py                  # інтерактивний чат (пам'ятає контекст розмови)
+python ask.py "питання"   - одне питання
+python ask.py             - чат
 """
 
 import os
@@ -11,13 +10,13 @@ import sys
 import anthropic
 from dotenv import load_dotenv
 
-# Ключ та налаштування беремо з файлу .env (він у .gitignore і НЕ потрапляє на GitHub)
+# ключ лежить в .env в корені репо (він в гітігнорі)
 load_dotenv()
 
-# Haiku — найдешевша модель Claude, для навчальних запитів її більш ніж достатньо
+# haiku найдешевша, для домашки вистачить
 MODEL = os.getenv("CLAUDE_MODEL", "claude-haiku-5-5")
-EFFORT = os.getenv("CLAUDE_EFFORT", "low")  # low | medium | high | xhigh | max
-MAX_TOKENS = 4096  # верхня межа довжини відповіді — щоб випадково не спалити багато токенів
+EFFORT = os.getenv("CLAUDE_EFFORT", "low")
+MAX_TOKENS = 4096  # щоб не спалити купу токенів на одну відповідь
 
 SYSTEM_PROMPT = (
     "Ти — корисний асистент. Відповідай мовою, якою поставлене запитання, "
@@ -26,8 +25,7 @@ SYSTEM_PROMPT = (
 
 
 def ask(client: anthropic.Anthropic, messages: list) -> list:
-    """Відправляє історію розмови в Claude, друкує відповідь по мірі генерації
-    і повертає content відповіді, щоб додати його в історію."""
+    # stream - щоб текст з'являвся одразу, а не чекати всю відповідь
     with client.messages.stream(
         model=MODEL,
         max_tokens=MAX_TOKENS,
@@ -49,8 +47,7 @@ def ask(client: anthropic.Anthropic, messages: list) -> list:
 
 
 def ask_safely(client: anthropic.Anthropic, messages: list) -> list | None:
-    """Те саме, що ask(), але з людськими повідомленнями про помилки.
-    Повертає None, якщо запит не вдався."""
+    # None якщо щось пішло не так
     try:
         return ask(client, messages)
     except anthropic.AuthenticationError:
@@ -68,17 +65,17 @@ def main() -> None:
     if not os.getenv("ANTHROPIC_API_KEY"):
         sys.exit("Не знайдено ANTHROPIC_API_KEY. Скопіюй .env.example у .env і встав туди свій ключ.")
 
-    client = anthropic.Anthropic()  # сам читає ANTHROPIC_API_KEY із середовища
+    client = anthropic.Anthropic()  # ключ сам підтягне з env
     messages = []
 
-    # Режим "одне запитання": python ask.py "питання"
+    # одне питання з аргументів
     if len(sys.argv) > 1:
         messages.append({"role": "user", "content": " ".join(sys.argv[1:])})
         if ask_safely(client, messages) is None:
             sys.exit(1)
         return
 
-    # Інтерактивний режим
+    # чат
     print(f"Чат з Claude ({MODEL}). Команди: /clear — нова розмова, exit — вихід.\n")
     while True:
         try:
@@ -100,10 +97,10 @@ def main() -> None:
         print("Claude: ", end="", flush=True)
         content = ask_safely(client, messages)
         if content is None:
-            messages.pop()  # прибираємо запитання, на яке не вдалося відповісти
+            messages.pop()  # питання без відповіді викидаю з історії
             continue
 
-        # Зберігаємо повну відповідь, щоб Claude пам'ятав контекст розмови
+        # API нічого не пам'ятає, тому шлю всю історію кожен раз
         messages.append({"role": "assistant", "content": content})
         print()
 

@@ -1,14 +1,12 @@
-# Секрети
+# ключі
 .env
 
-# Віртуальне середовище
+# venv
 venv/
 .venv/
 
-# Python
 __pycache__/
 *.pyc
 
-# IDE
 .idea/
 .vscode/
