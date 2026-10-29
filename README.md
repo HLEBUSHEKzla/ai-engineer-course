@@ -1,53 +1,43 @@
-# AI Engineer — домашні завдання
+# AI Engineer: домашки
 
-Домашки з курсу **AI Engineer** (Web Academy). Кожне ДЗ — в окремій папці.
+Тут мої домашні завдання з курсу AI Engineer (Web Academy). Кожна домашка лежить в окремій папці:
 
-| # | Тема | Папка |
-|---|---|---|
-| 1 | Запитання до Claude API | [`hw01_ask_claude`](hw01_ask_claude) |
-| 2 | Арена температур: temperature 0.0 проти 1.0 | [`hw02_temperature_arena`](hw02_temperature_arena) |
+- [`hw01_ask_claude`](hw01_ask_claude): скрипт, який задає питання Claude через API
+- [`hw02_temperature_arena`](hw02_temperature_arena): порівнюю відповіді з temperature 0.0 і 1.0
 
-## Налаштування (один раз на весь репозиторій)
+## Як запустити у себе
 
-Потрібен Python 3.10+. Віртуальне середовище, залежності й ключ спільні для всіх домашок і лежать у корені.
+Потрібен Python 3.10 або новіший. venv, залежності і ключ одні на весь репозиторій, тому налаштовується все один раз у корені.
 
 ```bash
 git clone https://github.com/HLEBUSHEKzla/ai-engineer-course.git
 cd ai-engineer-course
 ```
 
-Віртуальне середовище — Windows (PowerShell):
+Створити і активувати venv. На Windows у PowerShell:
 
 ```powershell
 python -m venv venv
 venv\Scripts\Activate.ps1
 ```
 
-macOS / Linux:
+На macOS / Linux:
 
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-> У PyCharm: *Settings → Project → Python Interpreter → Add Interpreter → Existing* і вибрати `venv/Scripts/python.exe` (Windows) або `venv/bin/python` (macOS/Linux).
+У PyCharm треба ще вибрати цей інтерпретатор: Settings → Project → Python Interpreter → Add Interpreter → Existing, і там `venv/Scripts/python.exe` (на Windows) або `venv/bin/python`.
 
-Залежності:
+Поставити залежності:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-API-ключ: скопіювати `.env.example` у `.env` (у корені репозиторію) і вписати ключ:
+Ключ: скопіювати `.env.example` в `.env` (у корені) і вставити туди свій `ANTHROPIC_API_KEY`. `.env` є в `.gitignore`, тож на GitHub він не потрапить. Скрипти з будь-якої папки його знаходять самі.
 
-```
-ANTHROPIC_API_KEY=sk-ant-api03-...
-```
+## Для себе: як додавати нову домашку
 
-`.env` є в `.gitignore`, тому ключ не потрапить на GitHub. Скрипти з будь-якої папки знаходять його самі.
-
-## Нове ДЗ
-
-1. Створити папку `hwNN_назва` (наприклад, `hw02_...`).
-2. Нові бібліотеки дописати в кореневий `requirements.txt`.
-3. Додати рядок у таблицю вище.
+Нова папка `hwNN_назва`. Якщо треба нова бібліотека, дописую її в кореневий `requirements.txt` і додаю домашку в список вище.
