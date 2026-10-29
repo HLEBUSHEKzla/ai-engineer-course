@@ -1,0 +1,14 @@
+# Секрети
+.env
+
+# Віртуальне середовище
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+.vscode/
